@@ -1,0 +1,95 @@
+<!--
+
+  Copyright (C) 2003-2011 eXo Platform SAS.
+ 
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU Affero General Public License for more details.
+ 
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<%
+import org.exoplatform.webui.core.UIPopupWindow;
+
+  def bookList = uicomponent.getBookList();
+  def labelNoBook = "There isn't any book yet";
+  def editBookLabel = "Edit";
+  def deleteBookLabel = "Delete";
+  
+  def lblIsbn = _ctx.appRes("BookstorePortlet.label.isbn");
+  def lblTitle = _ctx.appRes("BookstorePortlet.label.title");
+  def lblPublisher = _ctx.appRes("BookstorePortlet.label.publisher");
+  def lblCategory = _ctx.appRes("BookstorePortlet.label.category");
+  
+  def allBookIdx = 0
+%>
+<div class="UIManageAllSpace">
+  <% uiform.begin() %>
+  <div class="BoxSpaceList ClearFix">
+  
+    <%if (bookList.size() == 0) {%>
+    <div class="NoneBox">
+      <div class="NotYet">$labelNoBook</div>
+    </div>
+    <%}%>
+    <%for (book in bookList) {
+        def isbn = book.isbn
+        def title = book.title
+        def publisher = book.publisher
+        def category = book.category
+        def editBookAction = uicomponent.event("EditBook", book.id)
+  		def deleteBookAction = uicomponent.event("DeleteBook", book.id) + "; return false"
+  		def imageURL = uicomponent.buildImageURL(book)
+  		if(imageURL == null) {
+  		  imageURL = "http://cdn1.iconfinder.com/data/icons/Mysecret_10icons_by_Artdesigner/128/secret_book.png"
+  		}
+        
+        allBookIdx += 1;
+      %>
+      <% if (allBookIdx % 2 == 0) { %>
+        <div class="GrayBox ClearFix FL">
+        <% } else { %>
+        <div class="NormalBox ClearFix FL">
+        <% } %>
+        
+        <a class="AvatarSpace" href="#">
+			<img src="$imageURL" alt="#">
+			<span class="BorderTop"></span>
+			<span class="BorderBottom"></span>
+		</a>
+
+        <div class="ContentBox">
+          <div class="TitleContent">
+            <a class="Text" href="#">$title</a>
+          </div>
+          <div class="Content">
+            $lblIsbn: $isbn<br/>
+          </div>
+          
+		  <div class="Content">
+            $lblPublisher: $publisher<br/>
+          </div>
+          <div class="Content">
+            $lblCategory: $category<br/>
+          </div>
+          <ul class="ActionContent ClearFix">
+          	<li class="FL"><a onclick="$editBookAction" title="$editBookLabel" class="Action">$editBookLabel</a></li>
+		    <li class="Line FL">&nbsp;</li>
+		    <li class="FL"><a href="javascript: void(0)" onclick="$deleteBookAction" title="$deleteBookLabel" class="Action">$deleteBookLabel</a></li>
+		    <li class="Line FL">&nbsp;</li>
+          </ul>
+        </div>
+      </div>
+      <%}%>
+    </div>
+  <% uiform.end() %>
+  <div class="UIPopupMySpaces"><% uicomponent.renderChild(UIPopupWindow.class) %></div>
+</div>

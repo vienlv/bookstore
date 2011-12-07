@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+  <ModulePrefs title="Gifts part 0 - Boilerplate">
+    <Require feature="opensocial-0.7"/>
+  </ModulePrefs>
+  <Content type="html">
+    <![CDATA[
+    <script type="text/javascript" src="script.js"></script>
+    <script>
+		gadgets.util.registerOnLoadHandler(init);		
+    </script>
+    <div id='main'>
+	    Your friends:
+	    <div id='friends'></div>
+	</div>
+    ]]>
+  </Content>
+</Module>

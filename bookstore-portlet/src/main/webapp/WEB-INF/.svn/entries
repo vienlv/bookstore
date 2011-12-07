@@ -1,0 +1,63 @@
+10
+
+dir
+0
+http://svn.exoplatform.org/projects/social/branches/1.2.x/webapp/sample-portlet/src/main/webapp/WEB-INF
+http://svn.exoplatform.org/projects
+add
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+42d3c691-033b-0410-95b4-af486b8189e5
+
+conf
+dir
+
+
+
+add
+
+portlet.xml
+file
+
+
+
+add
+
+web.xml
+file
+
+
+
+add
+
+classes
+dir
+
+
+
+add
+
+gatein-resources.xml
+file
+
+
+
+add
+

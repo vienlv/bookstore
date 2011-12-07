@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<nodeTypes xmlns:nt="http://www.jcp.org/jcr/nt/1.0" xmlns:mix="http://www.jcp.org/jcr/mix/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0">
+
+  <!-- org.exoplatform.bookstore.chromattic.entity.BookstoreEntity -->
+  <nodeType name="exo:bookstore" isMixin="false" hasOrderableChildNodes="false">
+    <supertypes>
+      <supertype>nt:base</supertype>
+    </supertypes> 
+    <propertyDefinitions/>
+    <childNodeDefinitions>
+      <childNodeDefinition name="*" defaultPrimaryType="exo:categories" autoCreated="false" mandatory="false" onParentVersion="VERSION" protected="false" sameNameSiblings="false">
+        <requiredPrimaryTypes>
+          <requiredPrimaryType>exo:categories</requiredPrimaryType>
+        </requiredPrimaryTypes>
+      </childNodeDefinition>
+    </childNodeDefinitions>
+  </nodeType>
+  
+  <!-- org.exoplatform.bookstore.chromattic.entity.CategoryRootEntity -->
+  <nodeType name="exo:categories" isMixin="false" hasOrderableChildNodes="false">
+    <supertypes>
+      <supertype>nt:base</supertype>
+    </supertypes>
+    <propertyDefinitions/>
+    <childNodeDefinitions>
+      <childNodeDefinition name="*" defaultPrimaryType="exo:category" autoCreated="false" mandatory="false" onParentVersion="VERSION" protected="false" sameNameSiblings="false">
+        <requiredPrimaryTypes>
+          <requiredPrimaryType>exo:category</requiredPrimaryType>
+        </requiredPrimaryTypes>
+      </childNodeDefinition>
+    </childNodeDefinitions>
+  </nodeType>
+  
+  <!-- org.exoplatform.bookstore.chromattic.entity.CategoryEntity -->
+  <nodeType name="exo:category" isMixin="false" hasOrderableChildNodes="false">
+    <supertypes>
+      <supertype>nt:base</supertype>
+    </supertypes>
+    <propertyDefinitions/>
+    <childNodeDefinitions>
+      <childNodeDefinition name="*" defaultPrimaryType="exo:book" autoCreated="false" mandatory="false" onParentVersion="VERSION" protected="false" sameNameSiblings="false">
+        <requiredPrimaryTypes>
+          <requiredPrimaryType>exo:book</requiredPrimaryType>
+        </requiredPrimaryTypes>
+      </childNodeDefinition>
+    </childNodeDefinitions>
+  </nodeType>
+  
+  <!-- org.exoplatform.bookstore.chromattic.entity.BookRootEntity
+  <nodeType name="exo:books" isMixin="false" hasOrderableChildNodes="false">
+    <supertypes>
+      <supertype>nt:base</supertype>
+    </supertypes>
+    <propertyDefinitions/>
+    <childNodeDefinitions>
+      <childNodeDefinition name="*" defaultPrimaryType="exo:book" autoCreated="false" mandatory="false" onParentVersion="COPY" protected="false" sameNameSiblings="false">
+        <requiredPrimaryTypes>
+          <requiredPrimaryType>exo:book</requiredPrimaryType>
+        </requiredPrimaryTypes>
+      </childNodeDefinition>
+    </childNodeDefinitions>
+  </nodeType> -->
+  
+  <!-- org.exoplatform.bookstore.chromattic.entity.BookEntity -->
+  <nodeType name="exo:book" isMixin="false" hasOrderableChildNodes="false">
+    <supertypes>
+      <supertype>nt:base</supertype>
+    </supertypes>
+    <propertyDefinitions>
+      <propertyDefinition name="exo:isbn" requiredType="String" autoCreated="false" mandatory="false" onParentVersion="COPY" protected="false" multiple="false">
+        <valueConstraints/>
+      </propertyDefinition>
+      <propertyDefinition name="exo:title" requiredType="String" autoCreated="false" mandatory="false" onParentVersion="COPY" protected="false" multiple="false">
+        <valueConstraints/>
+      </propertyDefinition>
+      <propertyDefinition name="exo:publisher" requiredType="String" autoCreated="false" mandatory="false" onParentVersion="COPY" protected="false" multiple="false">
+        <valueConstraints/>
+      </propertyDefinition>
+    </propertyDefinitions>
+    <childNodeDefinitions>
+      <childNodeDefinition name="exo:image" defaultPrimaryType="nt:file" autoCreated="false" mandatory="false" onParentVersion="COPY" protected="false" sameNameSiblings="false">
+        <requiredPrimaryTypes>
+          <requiredPrimaryType>nt:file</requiredPrimaryType>
+        </requiredPrimaryTypes>
+      </childNodeDefinition>
+    </childNodeDefinitions>
+  </nodeType>
+
+</nodeTypes>

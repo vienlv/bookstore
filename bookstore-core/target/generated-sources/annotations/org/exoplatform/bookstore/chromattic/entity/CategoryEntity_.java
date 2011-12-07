@@ -1,0 +1,9 @@
+package org.exoplatform.bookstore.chromattic.entity;
+import org.chromattic.api.PropertyLiteral;
+public class CategoryEntity_ {
+public static final PropertyLiteral<org.exoplatform.bookstore.chromattic.entity.CategoryEntity,java.lang.String> id = new PropertyLiteral<org.exoplatform.bookstore.chromattic.entity.CategoryEntity,java.lang.String>(org.exoplatform.bookstore.chromattic.entity.CategoryEntity.class,"id",java.lang.String.class);
+public static final PropertyLiteral<org.exoplatform.bookstore.chromattic.entity.CategoryEntity,org.exoplatform.bookstore.chromattic.entity.BookEntity> books = new PropertyLiteral<org.exoplatform.bookstore.chromattic.entity.CategoryEntity,org.exoplatform.bookstore.chromattic.entity.BookEntity>(org.exoplatform.bookstore.chromattic.entity.CategoryEntity.class,"books",org.exoplatform.bookstore.chromattic.entity.BookEntity.class);
+public static final PropertyLiteral<org.exoplatform.bookstore.chromattic.entity.CategoryEntity,org.exoplatform.bookstore.chromattic.entity.CategoryRootEntity> categoryRoot = new PropertyLiteral<org.exoplatform.bookstore.chromattic.entity.CategoryEntity,org.exoplatform.bookstore.chromattic.entity.CategoryRootEntity>(org.exoplatform.bookstore.chromattic.entity.CategoryEntity.class,"categoryRoot",org.exoplatform.bookstore.chromattic.entity.CategoryRootEntity.class);
+public static final PropertyLiteral<org.exoplatform.bookstore.chromattic.entity.CategoryEntity,java.lang.String> name = new PropertyLiteral<org.exoplatform.bookstore.chromattic.entity.CategoryEntity,java.lang.String>(org.exoplatform.bookstore.chromattic.entity.CategoryEntity.class,"name",java.lang.String.class);
+public static final PropertyLiteral<org.exoplatform.bookstore.chromattic.entity.CategoryEntity,java.lang.String> path = new PropertyLiteral<org.exoplatform.bookstore.chromattic.entity.CategoryEntity,java.lang.String>(org.exoplatform.bookstore.chromattic.entity.CategoryEntity.class,"path",java.lang.String.class);
+}

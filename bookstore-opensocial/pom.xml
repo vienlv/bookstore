@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+  
+  <parent>
+    <artifactId>exo-bookstore</artifactId>
+    <groupId>org.exoplatform.bookstore</groupId>
+    <version>0.2-SNAPSHOT</version>
+  </parent>
+
+  <groupId>org.exoplatform.bookstore</groupId>
+  <artifactId>exo.bookstore.bookstore-opensocial</artifactId>
+  <version>${project.version}</version>
+  <packaging>war</packaging>
+  <name>eXo Bookstore OpenSocial Web App</name>
+  <description>eXo Bookstore OpenSocial Web App</description>
+
+  <build>
+    <finalName>bookstore-opensocial</finalName>
+  </build>
+
+</project>
