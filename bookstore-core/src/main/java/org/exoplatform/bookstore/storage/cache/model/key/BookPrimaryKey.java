@@ -24,25 +24,41 @@ package org.exoplatform.bookstore.storage.cache.model.key;
  */
 public class BookPrimaryKey extends MultitenantCacheKey {
 
+  /** serialVersionUID. */
+  private static final long serialVersionUID = -6796548297328329752L;
+  
+  /** Book isbn. */
   private final String isbn;
   
+  /**
+   * Constructor.<br/>
+   * 
+   * @param isbn
+   */
   public BookPrimaryKey(final String isbn) {
     this.isbn = isbn;
   }
   
+  /**
+   * Getter method for isbn.<br/>
+   * 
+   * @return Book isbn.
+   */
   public String getIsbn() {
     return isbn;
   }
   
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public boolean equals(final Object o) {
+    
     if (this == o) {
       return true;
     }
-    if (!(o instanceof BookPrimaryKey)) {
-      return false;
-    }
-    if (!super.equals(o)) {
+    
+    if (!(o instanceof BookPrimaryKey) || !super.equals(o)) {
       return false;
     }
 
@@ -55,6 +71,9 @@ public class BookPrimaryKey extends MultitenantCacheKey {
     return true;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public int hashCode() {
     int result = super.hashCode();

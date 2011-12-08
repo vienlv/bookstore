@@ -27,6 +27,12 @@ import org.exoplatform.bookstore.common.BookstoreConstants;
  */
 public class BookstoreUtils {
 
+  /**
+   * Get Book category from category id.<br/>
+   * 
+   * @param categoryId
+   * @return
+   */
   public static String getCategoryValue(String categoryId) {
     
     if (BookstoreConstants.CATEGORY_NOVEL_VALUE.equals(categoryId)) {
@@ -40,6 +46,12 @@ public class BookstoreUtils {
     }
   }
   
+  /**
+   * Append % char to input string.<br/>
+   * 
+   * @param str
+   * @return
+   */
   public static String appendPercentCharacter(String str) {
     
     if(StringUtils.isEmpty(str)) {

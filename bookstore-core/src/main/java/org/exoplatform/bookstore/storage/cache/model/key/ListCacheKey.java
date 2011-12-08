@@ -20,42 +20,56 @@ package org.exoplatform.bookstore.storage.cache.model.key;
  * Created by The eXo Platform SAS
  * Author : quangpld
  *          quangpld@exoplatform.com
- * Dec 7, 2011  
+ * Dec 5, 2011  
  */
 public class ListCacheKey extends MultitenantCacheKey {
-
+  
+  /** serialVersionUID. */
+  private static final long serialVersionUID = -6882132842346624110L;
+  
+  /** offset. */
   private final long offset;
+  
+  /** limit. */
   private final long limit;
 
+  /**
+   * Constructor.<br/>
+   * 
+   * @param offset
+   * @param limit
+   */
   public ListCacheKey(final long offset, final long limit) {
     this.offset = offset;
     this.limit = limit;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public boolean equals(final Object o) {
+    
     if (this == o) {
       return true;
     }
-    if (!(o instanceof ListCacheKey)) {
-      return false;
-    }
-    if (!super.equals(o)) {
+    
+    if (!(o instanceof ListCacheKey) || !super.equals(o)) {
       return false;
     }
 
     ListCacheKey that = (ListCacheKey) o;
 
-    if (limit != that.limit) {
-      return false;
-    }
-    if (offset != that.offset) {
+    if (limit != that.limit || offset != that.offset) {
       return false;
     }
 
     return true;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public int hashCode() {
     int result = super.hashCode();

@@ -20,26 +20,39 @@ package org.exoplatform.bookstore.storage.cache.model.key;
  * Created by The eXo Platform SAS
  * Author : quangpld
  *          quangpld@exoplatform.com
- * Dec 7, 2011  
+ * Dec 5, 2011  
  */
 public class ListBooksKey extends ListCacheKey {
   
+  /** serialVersionUID. */
+  private static final long serialVersionUID = -5690802957790974395L;
+  
+  /** BookFilterKey. */
   private final BookFilterKey key;
 
+  /**
+   * Constructor.<br/>
+   * 
+   * @param key
+   * @param offset
+   * @param limit
+   */
   public ListBooksKey(final BookFilterKey key, final long offset, final long limit) {
     super(offset, limit);
     this.key = key;
   }
   
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public boolean equals(final Object o) {
+    
     if (this == o) {
       return true;
     }
-    if (!(o instanceof ListBooksKey)) {
-      return false;
-    }
-    if (!super.equals(o)) {
+    
+    if (!(o instanceof ListBooksKey) || !super.equals(o)) {
       return false;
     }
 
@@ -52,6 +65,9 @@ public class ListBooksKey extends ListCacheKey {
     return true;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public int hashCode() {
     int result = super.hashCode();

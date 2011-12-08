@@ -449,6 +449,10 @@ public class BookStorageImpl implements BookStorage {
    */
   private BookstoreEntity _getBookstoreEntity() {
     
+    if(chromatticSession == null) {
+      _init();
+    }
+    
     return chromatticSession.findByPath(BookstoreEntity.class, BookstoreConstants.NODENAME_BOOKSTORE);
   }
   
@@ -464,6 +468,7 @@ public class BookStorageImpl implements BookStorage {
     List<Book> bookList = new ArrayList<Book>();
     
     try {
+      
       if(chromatticSession == null) {
         _init();
       }
@@ -473,12 +478,19 @@ public class BookStorageImpl implements BookStorage {
       whereExpression.like(new PropertyLiteralExpression<String>(String.class, BookstoreConstants.PROPERTY_JCR_PATH), "/exo:bookstore/%");
       
       if(BookstoreConstants.FIND_BY_ISBN.equals(findBy)) {
-        whereExpression.and().like(new PropertyLiteralExpression<String>(String.class, BookstoreConstants.PROPERTY_ISBN), BookstoreUtils.appendPercentCharacter(key));
+        
+        whereExpression.and().like(new PropertyLiteralExpression<String>(String.class, BookstoreConstants.PROPERTY_ISBN),
+                                   BookstoreUtils.appendPercentCharacter(key));
       } else if(BookstoreConstants.FIND_BY_TITLE.equals(findBy)) {
-        whereExpression.and().like(new PropertyLiteralExpression<String>(String.class, BookstoreConstants.PROPERTY_TITLE), BookstoreUtils.appendPercentCharacter(key));
+        
+        whereExpression.and().like(new PropertyLiteralExpression<String>(String.class, BookstoreConstants.PROPERTY_TITLE),
+                                   BookstoreUtils.appendPercentCharacter(key));
       } else if(BookstoreConstants.FIND_BY_PUBLISHER.equals(findBy)) {
-        whereExpression.and().like(new PropertyLiteralExpression<String>(String.class, BookstoreConstants.PROPERTY_PUBLISHER), BookstoreUtils.appendPercentCharacter(key));
+        
+        whereExpression.and().like(new PropertyLiteralExpression<String>(String.class, BookstoreConstants.PROPERTY_PUBLISHER),
+                                   BookstoreUtils.appendPercentCharacter(key));
       } else if(BookstoreConstants.FIND_BY_ID.equals(findBy)) {
+        
         whereExpression.and().equals(new PropertyLiteralExpression<String>(String.class, BookstoreConstants.PROPERTY_JCR_UUID), key);
       }
       

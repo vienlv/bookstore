@@ -28,18 +28,30 @@ import org.exoplatform.services.jcr.RepositoryService;
  * Dec 5, 2011  
  */
 public class MultitenantCacheKey implements CacheKey {
-
+  
+  /** serialVersionUID. */
+  private static final long serialVersionUID = -4129895804982464423L;
+  
+  /** Repository name. */
   private final String repositoryName;
   
+  /**
+   * Default constructor.<br/>
+   */
   public MultitenantCacheKey() {
     repositoryName = getCurrentRepositoryName();
   }
   
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public boolean equals(final Object o) {
+    
     if (this == o) {
       return true;
     }
+    
     if (!(o instanceof MultitenantCacheKey)) {
       return false;
     }
@@ -53,13 +65,23 @@ public class MultitenantCacheKey implements CacheKey {
     return true;
   }
   
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public int hashCode() {
     return repositoryName != null ? repositoryName.hashCode() : 0;
   }
   
+  /**
+   * Method used to get current repository name.<br/>
+   * 
+   * @return
+   */
   private String getCurrentRepositoryName() {
+    
     RepositoryService repositoryService = (RepositoryService) ExoContainerContext.getCurrentContainer().getComponentInstanceOfType(RepositoryService.class);
+    
     try {
       return repositoryService.getCurrentRepository().getConfiguration().getName();
     }

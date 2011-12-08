@@ -26,25 +26,41 @@ import org.exoplatform.bookstore.model.Book;
  */
 public class BookKey extends MultitenantCacheKey {
 
+  /** serialVersionUID. */
+  private static final long serialVersionUID = -527539986644247803L;
+  
+  /** Id. */
   private final String id;
   
+  /**
+   * Constructor.<br/>
+   * 
+   * @param book
+   */
   public BookKey(Book book) {
     this.id = book.getId();
   }
   
+  /**
+   * Getter method for id.<br/>
+   * 
+   * @return
+   */
   public String getId() {
     return id;
   }
   
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public boolean equals(final Object o) {
+    
     if (this == o) {
       return true;
     }
-    if (!(o instanceof BookKey)) {
-      return false;
-    }
-    if (!super.equals(o)) {
+    
+    if (!(o instanceof BookKey) || !super.equals(o)) {
       return false;
     }
 
@@ -57,6 +73,9 @@ public class BookKey extends MultitenantCacheKey {
     return true;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public int hashCode() {
     int result = super.hashCode();

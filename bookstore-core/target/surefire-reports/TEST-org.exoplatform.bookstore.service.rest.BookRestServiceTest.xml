@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="0.124" errors="0" skipped="0" tests="1" name="org.exoplatform.bookstore.service.rest.BookRestServiceTest">
+<testsuite failures="0" time="0.085" errors="0" skipped="0" tests="1" name="org.exoplatform.bookstore.service.rest.BookRestServiceTest">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="org.apache.lucene.maxClauseCount" value="3000"/>
@@ -20,7 +20,7 @@
     <property name="basedir" value="/home/quangpld/workspace/bookstore-0.2-SNAPSHOT/bookstore-core"/>
     <property name="java.endorsed.dirs" value="/home/quangpld/java/jdk1.6/jre/lib/endorsed"/>
     <property name="os.arch" value="i386"/>
-    <property name="surefire.real.class.path" value="/home/quangpld/workspace/bookstore-0.2-SNAPSHOT/bookstore-core/target/surefire/surefirebooter3511300464766193201.jar"/>
+    <property name="surefire.real.class.path" value="/home/quangpld/workspace/bookstore-0.2-SNAPSHOT/bookstore-core/target/surefire/surefirebooter8875157256221623246.jar"/>
     <property name="java.io.tmpdir" value="/tmp"/>
     <property name="line.separator" value="
 "/>
@@ -45,7 +45,7 @@
     <property name="java.vm.specification.version" value="1.0"/>
     <property name="sun.arch.data.model" value="32"/>
     <property name="java.home" value="/home/quangpld/java/jdk1.6/jre"/>
-    <property name="sun.java.command" value="/home/quangpld/workspace/bookstore-0.2-SNAPSHOT/bookstore-core/target/surefire/surefirebooter3511300464766193201.jar /home/quangpld/workspace/bookstore-0.2-SNAPSHOT/bookstore-core/target/surefire/surefire9139770439612449010tmp /home/quangpld/workspace/bookstore-0.2-SNAPSHOT/bookstore-core/target/surefire/surefire9212649370413292872tmp"/>
+    <property name="sun.java.command" value="/home/quangpld/workspace/bookstore-0.2-SNAPSHOT/bookstore-core/target/surefire/surefirebooter8875157256221623246.jar /home/quangpld/workspace/bookstore-0.2-SNAPSHOT/bookstore-core/target/surefire/surefire7653998482950464180tmp /home/quangpld/workspace/bookstore-0.2-SNAPSHOT/bookstore-core/target/surefire/surefire2724079482187569836tmp"/>
     <property name="java.specification.vendor" value="Sun Microsystems Inc."/>
     <property name="user.language" value="en"/>
     <property name="java.vm.info" value="mixed mode"/>
@@ -62,5 +62,5 @@
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase time="0.119" classname="org.exoplatform.bookstore.service.rest.BookRestServiceTest" name="testBookRestService"/>
+  <testcase time="0.082" classname="org.exoplatform.bookstore.service.rest.BookRestServiceTest" name="testBookRestService"/>
 </testsuite>
