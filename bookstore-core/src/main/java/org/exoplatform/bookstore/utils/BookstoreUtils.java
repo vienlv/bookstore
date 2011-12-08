@@ -16,6 +16,7 @@
  */
 package org.exoplatform.bookstore.utils;
 
+import org.apache.commons.lang.StringUtils;
 import org.exoplatform.bookstore.common.BookstoreConstants;
 
 /**
@@ -37,5 +38,19 @@ public class BookstoreUtils {
     } else {
       return BookstoreConstants.CATEGORY_OTHERS;
     }
+  }
+  
+  public static String appendPercentCharacter(String str) {
+    
+    if(StringUtils.isEmpty(str)) {
+      return null;
+    }
+    
+    StringBuilder sb = new StringBuilder();
+    sb.append("%");
+    sb.append(str);
+    sb.append("%");
+    
+    return sb.toString();
   }
 }

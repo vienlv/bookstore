@@ -31,7 +31,6 @@ import org.exoplatform.bookstore.storage.cache.model.key.BookFilterKey;
 import org.exoplatform.bookstore.storage.cache.model.key.BookKey;
 import org.exoplatform.bookstore.storage.cache.model.key.BookPrimaryKey;
 import org.exoplatform.bookstore.storage.cache.model.key.ListBooksKey;
-import org.exoplatform.bookstore.storage.impl.BookStorageImpl;
 import org.exoplatform.services.cache.ExoCache;
 
 /**
@@ -42,18 +41,37 @@ import org.exoplatform.services.cache.ExoCache;
  */
 public class CachedBookStorage implements BookStorage {
   
+  /** . */
   private final ExoCache<BookKey, BookData> exoBookCache;
+  
+  /** . */
   private final ExoCache<ListBooksKey, ListBooksData> exoBooksCache;
+  
+  /** . */
   private final ExoCache<BookPrimaryKey, BookKey> exoBookIndexCache;
+  
+  /** . */
   private final FutureExoCache<BookKey, BookData, ServiceContext<BookData>> bookCache;
+  
+  /** . */
   private final FutureExoCache<ListBooksKey, ListBooksData, ServiceContext<ListBooksData>> booksCache;
+  
+  /** . */
   private final FutureExoCache<BookPrimaryKey, BookKey, ServiceContext<BookKey>> bookIndexCache;
+
+  /** BookStorage object. */
+  private final BookStorage bookStorage;
   
-  private final BookStorageImpl bookStorageImpl;
-  
-  public CachedBookStorage(final BookStorageImpl bookStorageImpl, final BookstoreStorageCacheService cacheService) {
+  /**
+   * Constructor.<br/>
+   * 
+   * @param bookStorageImpl
+   * @param cacheService
+   */
+  public CachedBookStorage(final BookStorage bookStorage, final BookstoreStorageCacheService cacheService) {
     
-    this.bookStorageImpl = bookStorageImpl;
+    this.bookStorage = bookStorage;
+    
     this.exoBookCache = cacheService.getExoBookCache();
     this.exoBooksCache = cacheService.getExoBooksCache();
     this.exoBookIndexCache = cacheService.getExoBookIndexCache();
@@ -62,10 +80,13 @@ public class CachedBookStorage implements BookStorage {
     this.bookIndexCache = CacheType.BOOK_INDEX.createFutureCache(exoBookIndexCache);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public Book insert(final Book book) throws DataDuplicateException, DataNotFoundException {
 
-    Book returnBook = bookStorageImpl.insert(book);
+    Book returnBook = bookStorage.insert(book);
     BookKey bookKey = new BookKey(returnBook);
     exoBookCache.put(bookKey, new BookData(book));
     exoBooksCache.clearCache();
@@ -73,6 +94,9 @@ public class CachedBookStorage implements BookStorage {
     return returnBook;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public Book findById(final String id) {
     
@@ -80,23 +104,25 @@ public class CachedBookStorage implements BookStorage {
     Book book = bookCache.get(new ServiceContext<BookData>() {
       
       public BookData execute() {
-        return new BookData(bookStorageImpl.findById(id));
+        return new BookData(bookStorage.findById(id));
       }
     }, bookKey).build();
     
     return book;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public Book findByIsbn(final String isbn) {
     
     BookPrimaryKey bookPrimaryKey = new BookPrimaryKey(isbn);
-    
     BookKey bookKey = bookIndexCache.get(new ServiceContext<BookKey>() {
       
       public BookKey execute() {
         
-        Book book = bookStorageImpl.findByIsbn(isbn);
+        Book book = bookStorage.findByIsbn(isbn);
         
         if (book == null) {
           return null;
@@ -115,36 +141,47 @@ public class CachedBookStorage implements BookStorage {
     return null;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public List<Book> findByTitle(final String title) {
     
     BookFilter bookFilter = new BookFilter();
     BookFilterKey key = new BookFilterKey(title, bookFilter);
     ListBooksKey listKey = new ListBooksKey(key, 0, 0);
-    
     ListBooksData listData = booksCache.get(new ServiceContext<ListBooksData>() {
       
       public ListBooksData execute() {
-        List<Book> books = bookStorageImpl.findByTitle(title);
-        return buildIds(books);
+        List<Book> books = bookStorage.findByTitle(title);
+        return buildBooksData(books);
       }
     }, listKey);
     
     return buildBooks(listData);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public List<Book> findByPublisher(String publisher) {
     // TODO Auto-generated method stub
     return null;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public List<Book> findAll() {
     // TODO Auto-generated method stub
     return null;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void updateBook(final Book book) throws DataNotFoundException {
     
@@ -152,31 +189,43 @@ public class CachedBookStorage implements BookStorage {
     exoBookCache.remove(bookKey);
     exoBooksCache.clearCache();
     
-    bookStorageImpl.updateBook(book);
+    bookStorage.updateBook(book);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void deleteBook(final String id) throws DataNotFoundException {
     
-    bookStorageImpl.deleteBook(id);
+    bookStorage.deleteBook(id);
     BookKey bookKey = new BookKey(new Book(id));
     exoBookCache.remove(bookKey);
     exoBooksCache.clearCache();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void deleteAll() {
-    bookStorageImpl.deleteAll();
+    bookStorage.deleteAll();
     exoBookCache.clearCache();
     exoBooksCache.clearCache();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public boolean isExists(String isbn) {
     // TODO Auto-generated method stub
     return false;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public List<String> getAllCategories() {
     // TODO Auto-generated method stub
@@ -192,29 +241,31 @@ public class CachedBookStorage implements BookStorage {
   private List<Book> buildBooks(ListBooksData data) {
 
     List<Book> books = new ArrayList<Book>();
+    
     for (BookKey k : data.getIds()) {
       Book gotBook = findById(k.getId());
       books.add(gotBook);
     }
+    
     return books;
-
   }
 
   /**
-   * Build the ids from the book list.
+   * Build the book data list from the book list.
    *
    * @param books books
    * @return ids
    */
-  private ListBooksData buildIds(List<Book> books) {
+  private ListBooksData buildBooksData(List<Book> books) {
 
     List<BookKey> data = new ArrayList<BookKey>();
+    
     for (Book i : books) {
       BookKey k = new BookKey(i);
       exoBookCache.put(k, new BookData(i));
       data.add(new BookKey(i));
     }
+    
     return new ListBooksData(data);
-
   }
 }

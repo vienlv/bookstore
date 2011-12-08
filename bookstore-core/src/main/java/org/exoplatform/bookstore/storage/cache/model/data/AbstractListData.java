@@ -23,16 +23,30 @@ import java.util.List;
  * Created by The eXo Platform SAS
  * Author : quangpld
  *          quangpld@exoplatform.com
- * Dec 7, 2011  
+ * Dec 5, 2011  
  */
 public class AbstractListData<T> implements Serializable {
 
+  /** serialVersionUID. */
+  private static final long serialVersionUID = 3761917863190840583L;
+  
+  /** List Ids. */
   private final List<T> ids;
 
+  /**
+   * Constructor.<br/>
+   * 
+   * @param ids
+   */
   public AbstractListData(final List<T> ids) {
     this.ids = ids;
   }
 
+  /**
+   * Getter method for ids.<br/>
+   * 
+   * @return
+   */
   public List<T> getIds() {
     return ids;
   }

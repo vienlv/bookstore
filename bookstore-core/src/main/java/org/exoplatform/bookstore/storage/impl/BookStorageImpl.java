@@ -24,6 +24,7 @@ import java.util.Map;
 
 import javax.jcr.SimpleCredentials;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.chromattic.api.Chromattic;
 import org.chromattic.api.ChromatticBuilder;
@@ -32,6 +33,7 @@ import org.chromattic.api.query.Query;
 import org.chromattic.api.query.QueryBuilder;
 import org.chromattic.api.query.QueryResult;
 import org.chromattic.ext.ntdef.NTFile;
+import org.chromattic.ext.ntdef.NTResource_Chromattic;
 import org.chromattic.ext.ntdef.Resource;
 import org.exoplatform.bookstore.chromattic.entity.BookEntity;
 import org.exoplatform.bookstore.chromattic.entity.BookstoreEntity;
@@ -43,6 +45,7 @@ import org.exoplatform.bookstore.exception.DataDuplicateException;
 import org.exoplatform.bookstore.exception.DataNotFoundException;
 import org.exoplatform.bookstore.model.Book;
 import org.exoplatform.bookstore.storage.api.BookStorage;
+import org.exoplatform.bookstore.utils.BookstoreUtils;
 import org.exoplatform.services.cache.CacheService;
 import org.exoplatform.services.cache.ExoCache;
 import org.exoplatform.services.log.ExoLogger;
@@ -165,7 +168,7 @@ public class BookStorageImpl implements BookStorage {
     // Write log.
     LOG.info(String.format(BookstoreConstants.MSG_INSERT_BOOK_SUCCESSFUL, bookEntity.getTitle(), bookEntity.getIsbn(), bookEntity.getPublisher()));
     
-    return _getBookBeanFromBookEntity(bookEntity);
+    return _getBookFromBookEntity(bookEntity);
   }
 
   /**
@@ -174,8 +177,7 @@ public class BookStorageImpl implements BookStorage {
   @Override
   public Book findById(String id) {
     
-    List<Book> bookList = _find(BookstoreConstants.FIND_BY_ID, id);
-    return bookList.size() == 1 ? bookList.get(0) : null;
+    return _getBookFromBookEntity(_findById(id));
   }
 
   /**
@@ -433,7 +435,7 @@ public class BookStorageImpl implements BookStorage {
     }
     
     if(simpleCredentials == null) {
-      simpleCredentials = new SimpleCredentials(BookstoreConstants.USERNAME, BookstoreConstants.PASSWORD.toCharArray());
+      simpleCredentials = new SimpleCredentials(BookstoreConstants.USERNAME_ROOT, BookstoreConstants.PASSWORD.toCharArray());
     }
     
     // Return ChromatticSession object.
@@ -459,83 +461,6 @@ public class BookStorageImpl implements BookStorage {
    */
   private List<Book> _find(String findBy, String key) {
     
-    /*List<Book> bookList = new ArrayList<Book>();
-    
-    // Make query string.
-    StringBuilder sb = new StringBuilder();
-    sb.append("SELECT");
-    sb.append(" * ");
-    sb.append("FROM");
-    sb.append(" ");
-    sb.append(BookstoreConstants.NODETYPE_BOOK);
-    
-    if(StringUtils.isNotEmpty(findBy) && StringUtils.isNotEmpty(key)) {
-      sb.append(" ");
-      sb.append("WHERE");
-      sb.append(" ");
-      
-      if(BookstoreConstants.FIND_BY_ISBN.equals(findBy)) {
-        sb.append(BookstoreConstants.PROPERTY_ISBN);
-      } else if(BookstoreConstants.FIND_BY_TITLE.equals(findBy)) {
-        sb.append(BookstoreConstants.PROPERTY_TITLE);
-      } else if(BookstoreConstants.FIND_BY_PUBLISHER.equals(findBy)) {
-        sb.append(BookstoreConstants.PROPERTY_PUBLISHER);
-      } else if(BookstoreConstants.FIND_BY_ID.equals(findBy)) {
-        sb.append(BookstoreConstants.PROPERTY_JCR_UUID);
-      } 
-      
-      if(BookstoreConstants.FIND_BY_ID.equals(findBy)) {
-        sb.append(" = '");
-        sb.append(key);
-        sb.append("'");
-      } else {
-        sb.append(" LIKE '%");
-        sb.append(key);
-        sb.append("%'");
-      }
-    }
-    
-    try {
-      
-      // Initialize environment.
-      if(chromatticSession == null) {
-        _init();
-      }
-      
-      // Make query using chromattic.
-      QueryManager queryManager = chromatticSession.getJCRSession().getWorkspace().getQueryManager();
-      Query query = queryManager.createQuery(sb.toString(), Query.SQL);
-      QueryResult queryResult = query.execute();
-      
-      NodeIterator nodeIterator = queryResult.getNodes();
-      
-      while(nodeIterator.hasNext()) {
-        
-        Node bookNode = nodeIterator.nextNode();
-        Book book = new Book();
-        book.setId(bookNode.getUUID());
-        book.setCategory(bookNode.getParent().getName());
-        book.setIsbn(bookNode.getProperty(BookstoreConstants.PROPERTY_ISBN).getValue().getString());
-        book.setTitle(bookNode.getProperty(BookstoreConstants.PROPERTY_TITLE).getValue().getString());
-        book.setPublisher(bookNode.getProperty(BookstoreConstants.PROPERTY_PUBLISHER).getValue().getString());
-        
-        NodeIterator imageNodeIterator = bookNode.getNodes();
-        
-        if(imageNodeIterator.hasNext()) {
-          
-          Node imageNode = imageNodeIterator.nextNode();
-          book.setImageMimeType(imageNode.getProperty(BookstoreConstants.PROPERTY_MIME_TYPE).getValue().getString());
-          book.setImageBytes(IOUtils.toByteArray(imageNode.getProperty(BookstoreConstants.PROPERTY_JCR_DATA).getValue().getStream()));
-        }
-        
-        bookList.add(book);
-      }
-    } catch (Exception e) {
-      LOG.error(BookstoreConstants.MSG_SEARCH_BOOK_FAIL, e);
-    }
-    
-    return bookList;*/
-    
     List<Book> bookList = new ArrayList<Book>();
     
     try {
@@ -545,15 +470,16 @@ public class BookStorageImpl implements BookStorage {
       
       QueryBuilder<BookEntity> builder = _getSession().createQueryBuilder(BookEntity.class);
       WhereExpression whereExpression = new WhereExpression();
+      whereExpression.like(new PropertyLiteralExpression<String>(String.class, BookstoreConstants.PROPERTY_JCR_PATH), "/exo:bookstore/%");
       
       if(BookstoreConstants.FIND_BY_ISBN.equals(findBy)) {
-        whereExpression.like(new PropertyLiteralExpression<String>(String.class, BookstoreConstants.PROPERTY_ISBN), key);
+        whereExpression.and().like(new PropertyLiteralExpression<String>(String.class, BookstoreConstants.PROPERTY_ISBN), BookstoreUtils.appendPercentCharacter(key));
       } else if(BookstoreConstants.FIND_BY_TITLE.equals(findBy)) {
-        whereExpression.like(new PropertyLiteralExpression<String>(String.class, BookstoreConstants.PROPERTY_TITLE), key);
+        whereExpression.and().like(new PropertyLiteralExpression<String>(String.class, BookstoreConstants.PROPERTY_TITLE), BookstoreUtils.appendPercentCharacter(key));
       } else if(BookstoreConstants.FIND_BY_PUBLISHER.equals(findBy)) {
-        whereExpression.like(new PropertyLiteralExpression<String>(String.class, BookstoreConstants.PROPERTY_PUBLISHER), key);
+        whereExpression.and().like(new PropertyLiteralExpression<String>(String.class, BookstoreConstants.PROPERTY_PUBLISHER), BookstoreUtils.appendPercentCharacter(key));
       } else if(BookstoreConstants.FIND_BY_ID.equals(findBy)) {
-        whereExpression.equals(new PropertyLiteralExpression<String>(String.class, BookstoreConstants.PROPERTY_JCR_UUID), key);
+        whereExpression.and().equals(new PropertyLiteralExpression<String>(String.class, BookstoreConstants.PROPERTY_JCR_UUID), key);
       }
       
       Query<BookEntity> query = StringUtils.isEmpty(whereExpression.toString()) ? builder.get()
@@ -576,7 +502,7 @@ public class BookStorageImpl implements BookStorage {
         if(bookImage != null) {
           
           book.setImageMimeType(bookImage.getContentResource().getMimeType());
-          book.setImageBytes((byte[]) bookImage.getContent());
+          book.setImageBytes(IOUtils.toByteArray(((NTResource_Chromattic) bookImage.getContent()).getData()));
         }
         
         bookList.add(book);
@@ -644,6 +570,12 @@ public class BookStorageImpl implements BookStorage {
    * @return BookEntity object (exo:book node).
    */
   private BookEntity _findById(String id) {
+    
+    // Initialize environment.
+    if (chromattic == null) {
+      _init();
+    }
+    
     return chromatticSession.findById(BookEntity.class, id);
   }
   
@@ -653,7 +585,7 @@ public class BookStorageImpl implements BookStorage {
    * @param bookEntity BookEntity object used to covert to BookBean object.
    * @return BookBean object from BookEntity parameter.
    */
-  private Book _getBookBeanFromBookEntity(BookEntity bookEntity) {
+  private Book _getBookFromBookEntity(BookEntity bookEntity) {
     
     // If BookEntity object is null
     if (bookEntity == null) {

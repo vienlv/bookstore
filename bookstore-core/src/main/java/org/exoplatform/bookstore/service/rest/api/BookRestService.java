@@ -34,7 +34,7 @@ import javax.ws.rs.core.Response;
  */
 @Path("bookstore")
 public interface BookRestService {
-
+  
   @GET
   @Path("/get/{bookId}")
   @Produces(MediaType.APPLICATION_JSON)

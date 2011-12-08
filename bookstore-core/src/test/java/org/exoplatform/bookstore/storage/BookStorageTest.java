@@ -265,7 +265,7 @@ public class BookStorageTest extends TestCase {
       standaloneContainer = StandaloneContainer.getInstance();
       
       bookStorage = (BookStorageImpl) standaloneContainer.getComponentInstanceOfType(BookStorageImpl.class);
-      ((BookStorageImpl) bookStorage).setCredentials(new SimpleCredentials(BookstoreConstants.USERNAME, BookstoreConstants.PASSWORD.toCharArray()));
+      ((BookStorageImpl) bookStorage).setCredentials(new SimpleCredentials(BookstoreConstants.USERNAME_ROOT, BookstoreConstants.PASSWORD.toCharArray()));
     } catch (Exception e) {
       throw new RuntimeException("Failed to initialize standalone container: " + e.getMessage(), e);
     }

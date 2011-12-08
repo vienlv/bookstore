@@ -1,13 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: org.exoplatform.bookstore.storage.cache.CachedBookStorageTest
 -------------------------------------------------------------------------------
-Tests run: 5, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 772.427 sec <<< FAILURE!
-testFindByIsbn(org.exoplatform.bookstore.storage.cache.CachedBookStorageTest)  Time elapsed: 766.046 sec  <<< FAILURE!
-junit.framework.AssertionFailedError: expected:<1> but was:<0>
-	at junit.framework.Assert.fail(Assert.java:47)
-	at junit.framework.Assert.failNotEquals(Assert.java:282)
-	at junit.framework.Assert.assertEquals(Assert.java:64)
-	at junit.framework.Assert.assertEquals(Assert.java:201)
-	at junit.framework.Assert.assertEquals(Assert.java:207)
-	at org.exoplatform.bookstore.storage.cache.CachedBookStorageTest.testFindByIsbn(CachedBookStorageTest.java:134)
-
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.944 sec

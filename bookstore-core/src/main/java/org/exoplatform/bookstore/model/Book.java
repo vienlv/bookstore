@@ -51,6 +51,11 @@ public class Book {
   public Book() {
   }
   
+  /**
+   * Constructor.<br/>
+   * 
+   * @param id
+   */
   public Book(String id) {
     this.id = id;
   }

@@ -23,15 +23,25 @@ import java.util.List;
  * Created by The eXo Platform SAS
  * Author : quangpld
  *          quangpld@exoplatform.com
- * Dec 7, 2011  
+ * Dec 5, 2011  
  */
 public class BookFilter {
 
+  /** Book ISBN. */
   private String isbn;
+  
+  /** Book title. */
   private String title;
+  
+  /** Book publisher. */
   private String publisher;
+  
+  /** Excluded book list. */
   private List<Book> excludedBookList;
   
+  /**
+   * Default constructor.<br/>
+   */
   public BookFilter() {
     this.isbn = "";
     this.title = "";
@@ -39,34 +49,74 @@ public class BookFilter {
     this.excludedBookList = new ArrayList<Book>();
   }
 
+  /**
+   * Getter method for isbn.<br/>
+   * 
+   * @return Book isbn.
+   */
   public String getIsbn() {
     return isbn;
   }
 
+  /**
+   * Setter method for isbn.<br/>
+   * 
+   * @param isbn
+   */
   public void setIsbn(String isbn) {
     this.isbn = isbn;
   }
 
+  /**
+   * Getter method for title.<br/>
+   * 
+   * @return Book title.
+   */
   public String getTitle() {
     return title;
   }
 
+  /**
+   * Setter method for title.<br/>
+   * 
+   * @param title
+   */
   public void setTitle(String title) {
     this.title = title;
   }
 
+  /**
+   * Getter method for publisher.<br/>
+   * 
+   * @return Book publisher.
+   */
   public String getPublisher() {
     return publisher;
   }
 
+  /**
+   * Setter method for publisher.<br/>
+   * 
+   * @param publisher
+   */
   public void setPublisher(String publisher) {
     this.publisher = publisher;
   }
 
+  /**
+   * Getter method for excludedBookList.<br/>
+   * 
+   * @return Excluded book list.
+   */
   public List<Book> getExcludedBookList() {
     return excludedBookList;
   }
 
+  /**
+   * Setter method for excludedBookList.<br/>
+   * 
+   * @param excludedBookList
+   */
   public void setExcludedBookList(List<Book> excludedBookList) {
     this.excludedBookList = excludedBookList;
   }

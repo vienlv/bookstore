@@ -24,7 +24,7 @@ import org.exoplatform.services.cache.ExoCache;
  * Created by The eXo Platform SAS
  * Author : quangpld
  *          quangpld@exoplatform.com
- * Dec 7, 2011  
+ * Dec 5, 2011  
  */
 public class FutureExoCache<K extends Serializable, V, C> extends FutureCache<K, V, C> {
 

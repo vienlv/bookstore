@@ -81,14 +81,13 @@ public class CachedBookStorageTest extends TestCase {
                          "Scholastic Paperbacks",
                          "image/gif",
                          new byte[] {0, 1});
-    cachedBookStorage.insert(book);
+    book = cachedBookStorage.insert(book);
     
-    String id = book.getId();
     assertEquals(1, cacheService.getExoBookCache().getCacheSize());
     
     cacheService.getExoBookCache().clearCache();
     assertEquals(0, cacheService.getExoBookCache().getCacheSize());
-    cachedBookStorage.findById(id);
+    cachedBookStorage.findById(book.getId());
     assertEquals(1, cacheService.getExoBookCache().getCacheSize());
   }
   

@@ -26,5 +26,9 @@ import java.io.Serializable;
  */
 public interface CacheData<T> extends Serializable {
 
+  /**
+   * 
+   * @return
+   */
   public T build();
 }

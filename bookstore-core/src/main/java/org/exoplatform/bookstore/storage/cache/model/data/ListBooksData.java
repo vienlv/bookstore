@@ -25,10 +25,17 @@ import org.exoplatform.bookstore.storage.cache.model.key.BookKey;
  * Created by The eXo Platform SAS
  * Author : quangpld
  *          quangpld@exoplatform.com
- * Dec 7, 2011  
+ * Dec 5, 2011  
  */
 public class ListBooksData extends AbstractListData<BookKey> {
+  
+  /** serialVersionUID. */
+  private static final long serialVersionUID = 7471013733696484282L;
 
+  /**
+   * 
+   * @param ids
+   */
   public ListBooksData(final List<BookKey> ids) {
     super(ids);
   }

@@ -20,8 +20,10 @@ import javax.jcr.Credentials;
 import javax.jcr.Repository;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
+import javax.jcr.SimpleCredentials;
 
 import org.chromattic.spi.jcr.SessionLifeCycle;
+import org.exoplatform.bookstore.common.BookstoreConstants;
 import org.exoplatform.container.ExoContainer;
 import org.exoplatform.container.ExoContainerContext;
 import org.exoplatform.services.jcr.RepositoryService;
@@ -77,7 +79,17 @@ public class BookChromatticSessionLifeCycle implements SessionLifeCycle {
    */
   @Override
   public Session login(Credentials credentials) throws RepositoryException {
-    return repository.login(credentials);
+    
+    Session session = null;
+    
+    try {
+      session = repository.login(credentials);
+    } catch (RepositoryException e) {
+      Credentials socialCredentials = new SimpleCredentials(BookstoreConstants.USERNAME_ROOT, BookstoreConstants.PASSWORD_SOCIAL.toCharArray());
+      session = repository.login(socialCredentials);
+    }
+    
+    return session;
   }
   
   /**
@@ -85,7 +97,17 @@ public class BookChromatticSessionLifeCycle implements SessionLifeCycle {
    */
   @Override
   public Session login(Credentials credentials, String workspace) throws RepositoryException {
-    return repository.login(credentials, workspace);
+    
+    Session session = null;
+    
+    try {
+      session = repository.login(credentials, workspace);
+    } catch (RepositoryException e) {
+      Credentials socialCredentials = new SimpleCredentials(BookstoreConstants.USERNAME_ROOT, BookstoreConstants.PASSWORD_SOCIAL.toCharArray());
+      session = repository.login(socialCredentials, workspace);
+    }
+    
+    return session;
   }
 
   /**

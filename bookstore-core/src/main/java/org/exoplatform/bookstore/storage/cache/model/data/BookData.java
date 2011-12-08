@@ -26,23 +26,39 @@ import org.exoplatform.bookstore.model.Book;
  */
 public class BookData implements CacheData<Book> {
 
+  /** serialVersionUID. */
+  private static final long serialVersionUID = 7881085182390085595L;
+
+  /** Book id. */
   private final String id;
 
+  /** Book isbn. */
   private final String isbn;
 
+  /** Book title. */
   private final String title;
 
+  /** Book publisher. */
   private final String publisher;
   
+  /** Book category. */
   private final String category;
   
+  /** Book image mime-type. */
   private final String imageMimeType;
   
+  /** Book image contents. */
   private final byte[] imageBytes;
   
+  /**
+   * Constructor.<br/>
+   * 
+   * @param book
+   */
   public BookData(Book book) {
     
-    if (book != null) {
+    if(book != null) {
+      
       this.id = book.getId();
       this.isbn = book.getIsbn();
       this.title = book.getTitle();
@@ -50,8 +66,8 @@ public class BookData implements CacheData<Book> {
       this.category = book.getCategory();
       this.imageMimeType = book.getImageMimeType();
       this.imageBytes = book.getImageBytes();
-    }
-    else {
+    } else {
+      
       this.id = null;
       this.isbn = null;
       this.title = null;
@@ -62,34 +78,72 @@ public class BookData implements CacheData<Book> {
     }
   }
 
+  /**
+   * Getter method for id.<br/>
+   * 
+   * @return Book id.
+   */
   public String getId() {
     return id;
   }
 
+  /**
+   * Getter method for isbn.<br/>
+   * 
+   * @return Book isbn.
+   */
   public String getIsbn() {
     return isbn;
   }
 
+  /**
+   * Getter method for title.<br/>
+   * 
+   * @return Book title.
+   */
   public String getTitle() {
     return title;
   }
 
+  /**
+   * Getter method for publisher.<br/>
+   * 
+   * @return Book publisher.
+   */
   public String getPublisher() {
     return publisher;
   }
   
+  /**
+   * Getter method for category.<br/>
+   * 
+   * @return Book category.
+   */
   public String getCategory() {
     return category;
   }
   
+  /**
+   * Getter method for imageMimeType.<br/>
+   * 
+   * @return Book image mime-type.
+   */
   public String getImageMimeType() {
     return imageMimeType;
   }
   
+  /**
+   * Getter method for imageBytes.<br/>
+   * 
+   * @return Book image content.
+   */
   public byte[] getImageBytes() {
     return imageBytes;
   }
   
+  /**
+   * {@inheritDoc}
+   */
   public Book build() {
 
     if (id == null) {

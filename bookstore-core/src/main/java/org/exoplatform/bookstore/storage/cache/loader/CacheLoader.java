@@ -23,7 +23,7 @@ import org.exoplatform.bookstore.storage.cache.model.key.CacheKey;
  * Created by The eXo Platform SAS
  * Author : quangpld
  *          quangpld@exoplatform.com
- * Dec 7, 2011  
+ * Dec 5, 2011  
  */
 public class CacheLoader<K extends CacheKey, V> implements Loader<K, V, ServiceContext<V>> {
 

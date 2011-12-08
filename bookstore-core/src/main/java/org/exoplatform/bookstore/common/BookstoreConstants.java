@@ -78,21 +78,29 @@ public class BookstoreConstants {
   /** jcr:uuid Property uuid. */
   public static final String PROPERTY_JCR_UUID = "jcr:uuid";
   
-  public static final String USERNAME = "root";
+  /** jcr:path Property jcr path. */
+  public static final String PROPERTY_JCR_PATH = "jcr:path";
+  
+  /** Username used to log into repository. */
+  public static final String USERNAME_ROOT = "root";
+  
+  /** Pass used to log into bookstore repository. */
   public static final String PASSWORD = "exo";
   
-  public static final String CATEGORY_NOVEL_VALUE = "1";
-  public static final String CATEGORY_SCIENTIFIC_VALUE = "2";
-  public static final String CATEGORY_IT_VALUE = "3";
-  public static final String CATEGORY_OTHERS_VALUE = "4";
+  /** Username used to log into social repository. */
+  public static final String PASSWORD_SOCIAL = "gtn";
   
-  public static final String MSG_BOOK_ALREADY_EXIST = "Book %s <ISBN: %s> has already existed";
-  public static final String MSG_CATEGORY_DOES_NOT_EXIST = "Category %s is not existed";
-  public static final String MSG_INSERT_BOOK_SUCCESSFUL = "Book %s <ISBN: %s - Publisher: %s> has been inserted";
-  public static final String MSG_UPDATE_BOOK_SUCCESSFUL = "Book %s <ISBN: %s - Publisher: %s> has been updated";
-  public static final String MSG_SEARCH_BOOK_FAIL = "Fail to search book";
-  public static final String MSG_DELETE_BOOK_FAIL = "Fail to delete book";
-  public static final String MSG_BOOK_NOT_FOUND = "Book not found";
+  /** Category novel value. */
+  public static final String CATEGORY_NOVEL_VALUE = "1";
+  
+  /** Category scientific value. */
+  public static final String CATEGORY_SCIENTIFIC_VALUE = "2";
+  
+  /** Category information technology value. */
+  public static final String CATEGORY_IT_VALUE = "3";
+  
+  /** Category others value. */
+  public static final String CATEGORY_OTHERS_VALUE = "4";
   
   public static final String JCR_ROOT_PATH_FOR_REST = "/rest-socialdemo/jcr/repository/social/";
   public static final String SLASH = "/";
@@ -101,4 +109,12 @@ public class BookstoreConstants {
   public static final String FIND_BY_ISBN = "findIsbn";
   public static final String FIND_BY_TITLE = "findTitle";
   public static final String FIND_BY_PUBLISHER = "findPublisher";
+  
+  public static final String MSG_BOOK_ALREADY_EXIST = "Book %s <ISBN: %s> has already existed";
+  public static final String MSG_CATEGORY_DOES_NOT_EXIST = "Category %s is not existed";
+  public static final String MSG_INSERT_BOOK_SUCCESSFUL = "Book %s <ISBN: %s - Publisher: %s> has been inserted";
+  public static final String MSG_UPDATE_BOOK_SUCCESSFUL = "Book %s <ISBN: %s - Publisher: %s> has been updated";
+  public static final String MSG_SEARCH_BOOK_FAIL = "Fail to search book";
+  public static final String MSG_DELETE_BOOK_FAIL = "Fail to delete book";
+  public static final String MSG_BOOK_NOT_FOUND = "Book not found";
 }

@@ -34,7 +34,7 @@ public interface BookStorage {
    * Method used to insert book.<br/> 
    * 
    * @param book
-   * @return
+   * @return Book inserted.
    * @throws DataDuplicateException, DataNotFoundException
    */
   public Book insert(Book book) throws DataDuplicateException, DataNotFoundException;
@@ -43,7 +43,7 @@ public interface BookStorage {
    * Method used to find book by id.<br/>
    * 
    * @param id
-   * @return
+   * @return Book found by id.
    */
   public Book findById(String id);
   
@@ -51,7 +51,7 @@ public interface BookStorage {
    * Method used to find book by isbn.<br/>
    * 
    * @param isbn
-   * @return
+   * @return Book found by isbn.
    */
   public Book findByIsbn(String isbn);
   
@@ -59,7 +59,7 @@ public interface BookStorage {
    * Method used to find book by title.<br/>
    * 
    * @param title
-   * @return
+   * @return Book found by isbn.
    */
   public List<Book> findByTitle(String title);
   
@@ -67,14 +67,14 @@ public interface BookStorage {
    * Method used to find book by publisher.<br/>
    * 
    * @param publisher
-   * @return
+   * @return List of result books.
    */
   public List<Book> findByPublisher(String publisher);
   
   /**
    * Method used to find all book.<br/>
    * 
-   * @return
+   * @return List of books.
    */
   public List<Book> findAll();
   
@@ -82,7 +82,7 @@ public interface BookStorage {
    * Method used to update book.<br/>
    * 
    * @param book
-   * @return
+   * @return Book updated.
    */
   public void updateBook(Book book) throws DataNotFoundException;
 
@@ -109,7 +109,7 @@ public interface BookStorage {
   /**
    * Method used to get category list.<br/>
    * 
-   * @return
+   * @return All categories.
    */
   public List<String> getAllCategories();
 }

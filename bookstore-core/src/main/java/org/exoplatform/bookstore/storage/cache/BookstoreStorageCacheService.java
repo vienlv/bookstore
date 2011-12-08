@@ -32,24 +32,50 @@ import org.exoplatform.services.cache.ExoCache;
  */
 public class BookstoreStorageCacheService {
 
+  /** . */
   private final ExoCache<BookKey, BookData> exoBookCache;
+  
+  /** . */
   private final ExoCache<ListBooksKey, ListBooksData> exoBooksCache;
+  
+  /** . */
   private final ExoCache<BookPrimaryKey, BookKey> exoBookIndexCache;
   
+  /**
+   * Constructor.<br/>
+   * 
+   * @param cacheService
+   */
   public BookstoreStorageCacheService(CacheService cacheService) {
+    
     exoBookCache = CacheType.BOOK.getFromService(cacheService);
     exoBooksCache = CacheType.BOOKS.getFromService(cacheService);
     exoBookIndexCache = CacheType.BOOK_INDEX.getFromService(cacheService);
   }
 
+  /**
+   * Getter method for exoBookCache.<br/>
+   * 
+   * @return
+   */
   public ExoCache<BookKey, BookData> getExoBookCache() {
     return exoBookCache;
   }
 
+  /**
+   * Getter method for exoBooksCache.<br/>
+   * 
+   * @return
+   */
   public ExoCache<ListBooksKey, ListBooksData> getExoBooksCache() {
     return exoBooksCache;
   }
 
+  /**
+   * Getter method for exoBookIndexCache.<br/>
+   * 
+   * @return
+   */
   public ExoCache<BookPrimaryKey, BookKey> getExoBookIndexCache() {
     return exoBookIndexCache;
   }

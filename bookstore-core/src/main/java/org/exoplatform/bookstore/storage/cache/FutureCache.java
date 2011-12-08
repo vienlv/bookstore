@@ -30,7 +30,7 @@ import org.gatein.common.logging.LoggerFactory;
  * Created by The eXo Platform SAS
  * Author : quangpld
  *          quangpld@exoplatform.com
- * Dec 7, 2011  
+ * Dec 5, 2011  
  */
 public abstract class FutureCache<K, V, C> {
 
