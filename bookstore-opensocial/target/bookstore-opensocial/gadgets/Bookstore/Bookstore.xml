@@ -27,6 +27,7 @@
     <Require feature="setprefs" />
     <Require feature="opensocial-0.7" />
     <Require feature="dynamic-height" />
+    <Preload href="http://localhost:8080/rest-socialdemo/bookstore/get/" />
   </ModulePrefs>
   <UserPref datatype="enum" default_value="5"
     display_name="Friends displayed per page" name="itemsPerPage">

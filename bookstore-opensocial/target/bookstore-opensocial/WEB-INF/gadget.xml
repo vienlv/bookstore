@@ -26,8 +26,4 @@
     <path>/gadgets/Bookstore/Bookstore.xml</path>
   </gadget>
   
-  <gadget name="Sample">
-    <path>/gadgets/Sample/Sample.xml</path>
-  </gadget>
-  
 </gadgets>
