@@ -1,60 +1,53 @@
-/**
-  Copyright (C) 2003-2007 eXo Platform SAS. This program is free
-  software; you can redistribute it and/or modify it under the terms of
-  the GNU Affero General Public License as published by the Free
-  Software Foundation; either version 3 of the License, or (at your
-  option) any later version. This program is distributed in the hope
-  that it will be useful, but WITHOUT ANY WARRANTY; without even the
-  implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
-  PURPOSE. See the GNU General Public License for more details. You
-  should have received a copy of the GNU General Public License along
-  with this program; if not, see<http://www.gnu.org/licenses/>.
-*/
-/**
-  * Created by The eXo Platform SARL
-  * Author : hoat_le
-  *          hoatlevan@gmail.com
-  * Jun 17, 2009
-  */
-
 var eXo = eXo || {};
 eXo.social = eXo.social || {};
 
 function Bookstore() {
-  this.isbn = null;
-  this.title = null;
-  this.publisher = null;
-  this.category = null;
+  this.books = null;
+  this.prefs = null;
+  this.updateTime = 0;
 }
 
 Bookstore.prototype.init = function() {
+	
   eXo.social.bookstore = new Bookstore();
+  this.prefs = new gadgets.Prefs();
+  this.updateTime = this.prefs.getInt("updateTime");
   var params = {};
-  params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
-  gadgets.io.makeRequest('http://localhost:8080/rest-socialdemo/bookstore/get/', onLoadBooks, params);
   
+  params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
+	params[gadgets.io.RequestParameters.REFRESH_INTERVAL] = 0;
+	gadgets.io.makeRequest('http://localhost:8080/rest-socialdemo/bookstore/get/', onLoadBooks, params);
+
+	setInterval(function() {
+		gadgets.io.makeRequest('http://localhost:8080/rest-socialdemo/bookstore/get/', onLoadBooks, params);
+	}, this.updateTime*60*1000);
+
   function onLoadBooks(data) {
   	
   	var jsonData = data.data;
-	  eXo.social.bookstore.isbn = jsonData[0].isbn;
-	  eXo.social.bookstore.title = jsonData[0].title;
-	  eXo.social.bookstore.publisher = jsonData[0].publisher;
-	  eXo.social.bookstore.category = jsonData[0].category;
-	  eXo.social.bookstore.display();
+	  eXo.social.bookstore.books = jsonData;
+	  eXo.social.bookstore.display(eXo.social.bookstore.books);
   }
 }
 
-Bookstore.prototype.display = function() {
-  var viewerDisplay = "";
-  if (eXo.social.bookstore.isbn != null) {
-    viewerDisplay = eXo.social.bookstore.isbn;
+Bookstore.prototype.display = function(data) {
+	
+	if(data == null) {
+		return;
+	}
+  
+  var bookEl = document.getElementById("books");
+  var books = [];
+  
+  if(data.length > 0) {
+  	for(var i=0; i<data.length; i++) {
+    	books.push("<li>" + data[i].title + " (ISBN: " + data[i].isbn + "): " + data[i].publisher + " (" + data[i].category + ")" + "</li>");
+    }
+
+    bookEl.innerHTML = "<ul>" + books.join(" ") + "</ul>";
   } else {
-     alert("ERROR!!!")
+  	bookEl.innerHTML = "There isn't any book yet";
   }
-
-  var viewerEl = document.getElementById("viewer");
-
-  viewerEl.innerHTML = viewerDisplay;
 
   gadgets.window.adjustHeight();
 }
