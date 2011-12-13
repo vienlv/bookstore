@@ -84,24 +84,20 @@ public abstract class FutureCache<K, V, C> {
      if (value == null)
      {
         // Create our future
-        FutureTask<V> future = new FutureTask<V>(new Callable<V>()
-        {
-           public V call() throws Exception
-           {
-              // Retrieve the value from the loader
+        FutureTask<V> future = new FutureTask<V>(new Callable<V>() {
+           
+          public V call() throws Exception {
+              
+            // Retrieve the value from the loader
               V value = loader.retrieve(context, key);
-
-              //
-              if (value != null)
-              {
+              
+              if (value != null) {
                  // Cache it, it is made available to other threads (unless someone removes it)
                  put(key, value);
 
                  // Return value
                  return value;
-              }
-              else
-              {
+              } else {
                  return null;
               }
            }
@@ -116,27 +112,19 @@ public abstract class FutureCache<K, V, C> {
            FutureTask<V> phantom = futureEntries.putIfAbsent(key, future);
 
            // Use the value that could have been inserted by another thread
-           if (phantom != null)
-           {
+           if (phantom != null) {
               future = phantom;
               inserted = false;
-           }
-           else
-           {
+           } else {
               future.run();
            }
 
            // Returns the value
            value = future.get();
-        }
-        catch (ExecutionException e)
-        {
-           if (e.getCause() != null)
-           {
+        } catch (ExecutionException e) {
+           if (e.getCause() != null) {
               throw new UndeclaredThrowableException(e.getCause());
-           }
-           else
-           {
+           } else {
               log.error("Computing of resource " + key + " threw an exception", e.getCause());
            }
         }

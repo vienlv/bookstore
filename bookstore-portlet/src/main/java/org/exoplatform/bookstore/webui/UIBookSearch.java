@@ -16,7 +16,6 @@
  */
 package org.exoplatform.bookstore.webui;
 
-import org.apache.commons.lang.StringUtils;
 import org.exoplatform.bookstore.BookUtils;
 import org.exoplatform.bookstore.storage.api.BookStorage;
 import org.exoplatform.webui.config.annotation.ComponentConfig;
@@ -79,7 +78,7 @@ public class UIBookSearch extends UIBookstoreSection {
       BookStorage bookStorage = BookUtils.getBookService();
       
       UIBookList uiBookList = ((UIBookstore) uiBookSearch.getParent()).getChildById("UIBookList");
-      uiBookList.setBookList(StringUtils.isEmpty(title) ? bookStorage.findAll() : bookStorage.findByTitle(title));
+      UIBookList.bookList = TXT_BOOK_SEARCH_DEFAULT_VALUE.equals(title) ? bookStorage.findAll() : bookStorage.findByTitle(title);
       event.getRequestContext().addUIComponentToUpdateByAjax(uiBookList);
     }
   }

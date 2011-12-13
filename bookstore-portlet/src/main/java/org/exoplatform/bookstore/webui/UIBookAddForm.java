@@ -19,6 +19,7 @@ package org.exoplatform.bookstore.webui;
 import java.io.InputStream;
 
 import org.exoplatform.bookstore.BookUtils;
+import org.exoplatform.bookstore.common.BookstoreConstants;
 import org.exoplatform.bookstore.exception.DataDuplicateException;
 import org.exoplatform.bookstore.model.Book;
 import org.exoplatform.bookstore.storage.api.BookStorage;
@@ -103,10 +104,13 @@ public class UIBookAddForm extends UIFormTabPane {
       
       try {
         bookStorage.insert(book);
+        UIBookList.bookList = bookStorage.findAll();
       } catch(DataDuplicateException e) {
         WebuiRequestContext ctx = event.getRequestContext();
         UIApplication uiApplication = ctx.getUIApplication();
-        uiApplication.addMessage(new ApplicationMessage("Book has already exist!", null, ApplicationMessage.WARNING));
+        uiApplication.addMessage(new ApplicationMessage(String.format(BookstoreConstants.MSG_BOOK_ALREADY_EXIST,
+                                                                      book.getTitle(), book.getIsbn()),
+                                                        null, ApplicationMessage.WARNING));
       }
       
       UIPopupWindow uiPopupWindow = uiBookAddForm.getParent();

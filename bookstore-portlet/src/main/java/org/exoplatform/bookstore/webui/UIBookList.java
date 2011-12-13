@@ -20,10 +20,14 @@ import java.util.List;
 
 import org.exoplatform.bookstore.BookUtils;
 import org.exoplatform.bookstore.common.BookstoreConstants;
+import org.exoplatform.bookstore.exception.DataNotFoundException;
 import org.exoplatform.bookstore.model.Book;
+import org.exoplatform.bookstore.storage.api.BookStorage;
+import org.exoplatform.web.application.ApplicationMessage;
 import org.exoplatform.webui.application.WebuiRequestContext;
 import org.exoplatform.webui.config.annotation.ComponentConfig;
 import org.exoplatform.webui.config.annotation.EventConfig;
+import org.exoplatform.webui.core.UIApplication;
 import org.exoplatform.webui.core.UIPopupWindow;
 import org.exoplatform.webui.core.lifecycle.UIFormLifecycle;
 import org.exoplatform.webui.event.Event;
@@ -51,7 +55,7 @@ public class UIBookList extends UIBookstoreSection {
   public static final String COMPONENT_ID_UI_POPUP_EDIT_BOOK = "UIPopupEditBook";
   
   /** List of books. */
-  List<Book> bookList = null;
+  public static List<Book> bookList = null;
 
   /**
    * Default constructor.<br/>
@@ -70,22 +74,13 @@ public class UIBookList extends UIBookstoreSection {
    * 
    * @return
    */
-  public List<Book> getBookList() {
+  public static List<Book> getBookList() {
     
     if (bookList != null) {
       return bookList;
     }
     
     return BookUtils.getBookService().findAll();
-  }
-
-  /**
-   * Setter method for bookList field.<br/>
-   * 
-   * @param bookList
-   */
-  public void setBookList(List<Book> bookList) {
-    this.bookList = bookList;
   }
   
   /**
@@ -150,7 +145,17 @@ public class UIBookList extends UIBookstoreSection {
     public void execute(Event<UIBookList> event) throws Exception {      
       WebuiRequestContext ctx = event.getRequestContext();
       String bookId = ctx.getRequestParameter("objectId");
-      BookUtils.getBookService().deleteBook(bookId);
+      
+      try {
+        BookStorage bookStorage = BookUtils.getBookService();
+        bookStorage.deleteBook(bookId);
+        UIBookList.bookList = bookStorage.findAll();
+        BookUtils.updateWorkingSpace();
+      } catch (DataNotFoundException e) {
+        UIApplication uiApplication = ctx.getUIApplication();
+        uiApplication.addMessage(new ApplicationMessage(BookstoreConstants.MSG_BOOK_NOT_FOUND,
+                                                        null, ApplicationMessage.WARNING));
+      }
     }
   }
 }

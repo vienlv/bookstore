@@ -114,6 +114,7 @@ public class BookstoreConstants {
   public static final String MSG_CATEGORY_DOES_NOT_EXIST = "Category %s is not existed";
   public static final String MSG_INSERT_BOOK_SUCCESSFUL = "Book %s <ISBN: %s - Publisher: %s> has been inserted";
   public static final String MSG_UPDATE_BOOK_SUCCESSFUL = "Book %s <ISBN: %s - Publisher: %s> has been updated";
+  public static final String MSG_DELETE_BOOK_SUCCESSFUL = "Book %s <ISBN: %s - Publisher: %s> has been deleted";
   public static final String MSG_SEARCH_BOOK_FAIL = "Fail to search book";
   public static final String MSG_DELETE_BOOK_FAIL = "Fail to delete book";
   public static final String MSG_BOOK_NOT_FOUND = "Book not found";

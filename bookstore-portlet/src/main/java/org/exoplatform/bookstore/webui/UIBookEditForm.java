@@ -119,6 +119,7 @@ public class UIBookEditForm extends UIFormTabPane {
       
       try {
         bookStorage.updateBook(book);
+        UIBookList.bookList = bookStorage.findAll();
       } catch(DataNotFoundException e) {
         WebuiRequestContext ctx = event.getRequestContext();
         UIApplication uiApplication = ctx.getUIApplication();

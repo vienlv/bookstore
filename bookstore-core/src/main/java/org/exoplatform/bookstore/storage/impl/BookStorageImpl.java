@@ -275,11 +275,16 @@ public class BookStorageImpl implements BookStorage {
       throw new DataNotFoundException(BookstoreConstants.MSG_SEARCH_BOOK_FAIL);
     }
     
+    Book book = _getBookFromBookEntity(bookEntity);
+    
     // Delete book.
     bookEntity.getCategory().getBooks().remove(bookEntity.getName());
     
     // Save session.
     chromatticSession.save();
+    
+    // Write log.
+    LOG.info(String.format(BookstoreConstants.MSG_DELETE_BOOK_SUCCESSFUL, book.getTitle(), book.getIsbn(), book.getPublisher()));
   }
 
   /**

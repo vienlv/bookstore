@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="5.762" errors="0" skipped="0" tests="5" name="org.exoplatform.bookstore.storage.cache.CachedBookStorageTest">
+<testsuite failures="0" time="6.089" errors="0" skipped="0" tests="5" name="org.exoplatform.bookstore.storage.cache.CachedBookStorageTest">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="org.apache.lucene.maxClauseCount" value="3000"/>
@@ -20,7 +20,7 @@
     <property name="basedir" value="/home/quangpld/workspace/bookstore-0.2-SNAPSHOT/bookstore-core"/>
     <property name="java.endorsed.dirs" value="/home/quangpld/java/jdk1.6/jre/lib/endorsed"/>
     <property name="os.arch" value="i386"/>
-    <property name="surefire.real.class.path" value="/home/quangpld/workspace/bookstore-0.2-SNAPSHOT/bookstore-core/target/surefire/surefirebooter4288394525134225484.jar"/>
+    <property name="surefire.real.class.path" value="/home/quangpld/workspace/bookstore-0.2-SNAPSHOT/bookstore-core/target/surefire/surefirebooter7353083458302965863.jar"/>
     <property name="java.io.tmpdir" value="/tmp"/>
     <property name="line.separator" value="
 "/>
@@ -45,7 +45,7 @@
     <property name="java.vm.specification.version" value="1.0"/>
     <property name="sun.arch.data.model" value="32"/>
     <property name="java.home" value="/home/quangpld/java/jdk1.6/jre"/>
-    <property name="sun.java.command" value="/home/quangpld/workspace/bookstore-0.2-SNAPSHOT/bookstore-core/target/surefire/surefirebooter4288394525134225484.jar /home/quangpld/workspace/bookstore-0.2-SNAPSHOT/bookstore-core/target/surefire/surefire8227832658524852806tmp /home/quangpld/workspace/bookstore-0.2-SNAPSHOT/bookstore-core/target/surefire/surefire1409551717694650589tmp"/>
+    <property name="sun.java.command" value="/home/quangpld/workspace/bookstore-0.2-SNAPSHOT/bookstore-core/target/surefire/surefirebooter7353083458302965863.jar /home/quangpld/workspace/bookstore-0.2-SNAPSHOT/bookstore-core/target/surefire/surefire3801665890281730016tmp /home/quangpld/workspace/bookstore-0.2-SNAPSHOT/bookstore-core/target/surefire/surefire8926471453967433153tmp"/>
     <property name="java.specification.vendor" value="Sun Microsystems Inc."/>
     <property name="user.language" value="en"/>
     <property name="java.vm.info" value="mixed mode"/>
@@ -62,9 +62,9 @@
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase time="0.632" classname="org.exoplatform.bookstore.storage.cache.CachedBookStorageTest" name="testInsertBook"/>
-  <testcase time="0.135" classname="org.exoplatform.bookstore.storage.cache.CachedBookStorageTest" name="testFindById"/>
-  <testcase time="0.174" classname="org.exoplatform.bookstore.storage.cache.CachedBookStorageTest" name="testUpdateBook"/>
-  <testcase time="0.345" classname="org.exoplatform.bookstore.storage.cache.CachedBookStorageTest" name="testFindByIsbn"/>
+  <testcase time="0.61" classname="org.exoplatform.bookstore.storage.cache.CachedBookStorageTest" name="testInsertBook"/>
+  <testcase time="0.129" classname="org.exoplatform.bookstore.storage.cache.CachedBookStorageTest" name="testFindById"/>
+  <testcase time="0.188" classname="org.exoplatform.bookstore.storage.cache.CachedBookStorageTest" name="testUpdateBook"/>
+  <testcase time="0.367" classname="org.exoplatform.bookstore.storage.cache.CachedBookStorageTest" name="testFindByIsbn"/>
   <testcase time="0.192" classname="org.exoplatform.bookstore.storage.cache.CachedBookStorageTest" name="testFindByTitle"/>
 </testsuite>

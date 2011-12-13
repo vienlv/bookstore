@@ -34,5 +34,26 @@ def lblAddBook = _ctx.appRes("BookstorePortlet.label.add");
 		   </div>
     	</div>
 	<% uiform.end() %>
+	
 	<div class="UIPopupMySpaces"><% uicomponent.renderChild(UIPopupWindow.class) %></div>
+	
+	<script type="text/javascript">
+	  var txtBookSearch = document.getElementById("txtBookSearch");
+		txtBookSearch.addEventListener("focus", handleFocus, false);
+		txtBookSearch.addEventListener("blur", handleBlur, false);
+		
+		function handleFocus(){
+			
+			if(txtBookSearch.value == 'Please input title to search') {
+				txtBookSearch.value = '';
+			}
+		}
+		
+		function handleBlur(){
+			
+			if(txtBookSearch.value.length == 0) {
+				txtBookSearch.value = 'Please input title to search';
+			}
+		}
+	</script>
 </div>
